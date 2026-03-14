@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #050505;
+  --color-foreground: #e0e0e0;
+  
+  --color-danger: #ea002a;
+  --color-danger-light: #ff4d6d;
+  --color-danger-dark: #8a0018;
+
+  --color-warning: #ffea00;
+  --color-warning-light: #ffeb3b;
+
+  --color-info: #00f0ff;
+  --color-info-dark: #00b8c4;
+
+  --color-success: #00ff66;
+  --color-success-dark: #00cc52;
+
+  --color-neon-purple: #b026ff;
+  --color-neon-purple-dark: #8d1ecc;
+
+  --color-surface: #0a0e17;
+  --color-surface-hover: #161920;
+  --color-surface-border: #1a1f2e;
+
+  /* Custom Animations */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-scan-line: scan 3s linear infinite;
+  --animate-drift: drift 20s linear infinite;
+  
+  /* Cyber Enhancements */
+  --animate-glitch: glitch 0.5s cubic-bezier(.25, .46, .45, .94) both infinite;
+  --animate-cyber-pulse: cyber-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-radar-spin: radar-spin 4s linear infinite;
+  --animate-scan-sweep: scan-sweep 6s linear infinite;
+  --animate-grid-drift: grid-drift 20s linear infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; filter: brightness(1); }
+  50% { opacity: 0.7; filter: brightness(1.5); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+@keyframes cyber-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--color-info), inset 0 0 10px var(--color-info); }
+  50% { opacity: 0.8; box-shadow: 0 0 20px var(--color-info), inset 0 0 20px var(--color-info); }
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scan-sweep {
+  0% { top: -10%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
+@keyframes grid-drift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased selection:bg-info selection:text-background;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-surface/30 backdrop-blur-2xl border border-surface-border shadow-lg relative overflow-hidden;
+  }
+  .neon-border-danger {
+    @apply border border-danger/50 shadow-[0_0_15px_rgba(234,0,42,0.3)];
+  }
+  .neon-text-danger {
+    @apply text-danger drop-shadow-[0_0_12px_rgba(234,0,42,1)];
+  }
+  .neon-text-info {
+    @apply text-info drop-shadow-[0_0_12px_rgba(0,240,255,1)];
+  }
+  .neon-text-success {
+    @apply text-success drop-shadow-[0_0_12px_rgba(0,255,102,1)];
+  }
+  .neon-text-warning {
+    @apply text-warning drop-shadow-[0_0_12px_rgba(255,234,0,1)];
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .cyber-grid {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, transparent, black, transparent);
+  }
+  .cyber-scanline {
+    @apply absolute left-0 right-0 h-[2px] bg-info/50 shadow-[0_0_8px_rgba(0,240,255,0.8)] pointer-events-none z-50;
+    animation: scan-sweep 6s linear infinite;
+  }
+  .glitch-hover:hover {
+    animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+}
+
+/* Custom Scrollbar for Cyberpunk vibe */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-info-dark);
+}
